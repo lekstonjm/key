@@ -1,8 +1,20 @@
 window.onload = () => {
     'use strict';
-  
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker
-               .register('./worker.js');
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    if (!urlSearchParams.has('metered_id'))
+    {
+      alert('please enter a metered id');
     }
+    const key = urlSearchParams.get('metered_id');
+    async function loadIceServers() {
+      const response = await fetch(
+        "https://your-app-name.metered.live/api/v1/turn/credentials?apiKey=" +
+        key
+      );
+      const iceServers = await response.json();
+      alert(JSON.stringify(iceServers));
+      document.getElementById("ice-servers").value = JSON.stringify(iceServers);
+    }
+    
+    loadIceServers();
   }
