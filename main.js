@@ -1,6 +1,6 @@
 window.onload = () => {
     'use strict';
-    const urlSearchParams = new URLSearchParams(window.location.search);
+    const urlSearchParams = new URLSearchParams(window.location.search.replace('/\/*$/',''));
     if (!urlSearchParams.has('metered_id'))
     {
       alert('please enter a metered id');
